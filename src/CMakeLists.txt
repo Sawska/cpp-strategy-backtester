@@ -2,6 +2,7 @@ add_library(backtester_lib
     CsvTickLoader.cpp
     MeanReversionStrategy.cpp
     SimulatedExecutionHandler.cpp
+    PortfolioHandler.cpp
 )
 
 target_include_directories(backtester_lib PUBLIC ${CMAKE_SOURCE_DIR}/include)

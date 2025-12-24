@@ -2,9 +2,11 @@
 #include <string>
 #include <vector>
 #include <iomanip>
+#include <map>
 #include "backtester/CsvTickLoader.hpp"
 #include "backtester/MeanReversionStrategy.hpp"
 #include "backtester/SimulatedExecutionHandler.hpp"
+#include "backtester/PortfolioHandler.hpp"
 
 int main() {
     std::string filename = "data/market_data.csv"; 
@@ -17,31 +19,30 @@ int main() {
 
     SimulatedExecutionHandler executionHandler(0.001);
 
-    std::cout << "Starting Backtest on " << filename << "..." << std::endl;
-    std::cout << "Strategy: " << strategy.getName() << std::endl;
-    std::cout << "Fee Rate: 0.1%" << std::endl;
+    PortfolioHandler portfolio(10000.0);
+
+    std::cout << "Starting Backtest..." << std::endl;
+    std::cout << "Initial Balance: " << portfolio.getCash() << std::endl;
     std::cout << "------------------------------------------------" << std::endl;
 
     int tickCount = 0;
-    int signalsCount = 0;
+    double lastPrice = 0.0; 
 
     while (true) {
         auto tickOpt = loader.next();
-        if (!tickOpt.has_value()) {
-            break;
-        }
+        if (!tickOpt.has_value()) break;
         
         const Tick& tick = tickOpt.value();
+        lastPrice = tick.price;
         tickCount++;
 
+        
         Side signal = strategy.onTick(tick);
 
         if (signal != Side::Unknown) {
-            signalsCount++;
-
             Order order;
             order.timestamp = tick.timestamp;
-            order.symbol = "BTCUSDT"; 
+            order.symbol = "BTCUSDT";
             order.side = signal;
             order.quantity = 1.0; 
 
@@ -49,26 +50,36 @@ int main() {
 
             if (execOpt.has_value()) {
                 const Execution& exec = execOpt.value();
-
-                std::string sideStr = (exec.side == Side::Buy) ? "BUY " : "SELL";
                 
+                portfolio.onExecution(exec);
+
                 std::cout << "Tick #" << tickCount 
-                          << " | Time: " << tick.timestamp
-                          << " | EXECUTION: " << sideStr 
+                          << " | " << (exec.side == Side::Buy ? "BUY " : "SELL")
                           << " | Price: " << std::fixed << std::setprecision(2) << exec.price
-                          << " | Qty: " << exec.quantity
                           << " | Fee: " << exec.fee
+                          << " | Cash Left: " << portfolio.getCash() 
                           << std::endl;
             }
         }
     }
 
     std::cout << "------------------------------------------------" << std::endl;
-    std::cout << "Backtest finished." << std::endl;
-    std::cout << "Processed ticks: " << tickCount << std::endl;
-    std::cout << "Signals generated: " << signalsCount << std::endl;
+    std::cout << "BACKTEST RESULTS" << std::endl;
     
-    std::cout << "Total Executions: " << executionHandler.getExecutions().size() << std::endl;
+    std::map<std::string, double> finalPrices;
+    finalPrices["BTCUSDT"] = lastPrice;
+    
+    double startValue = 10000.0;
+    double endValue = portfolio.getTotalValue(finalPrices);
+    double pnl = endValue - startValue;
+    double returnPct = (pnl / startValue) * 100.0;
+
+    std::cout << "Final Price: " << lastPrice << std::endl;
+    std::cout << "Final Cash: " << portfolio.getCash() << std::endl;
+    std::cout << "Final Holdings: " << portfolio.getPosition("BTCUSDT") << " BTC" << std::endl;
+    std::cout << "------------------------------------------------" << std::endl;
+    std::cout << "Total Portfolio Value: " << endValue << std::endl;
+    std::cout << "Net Profit (PnL): " << (pnl >= 0 ? "+" : "") << pnl << " (" << returnPct << "%)" << std::endl;
 
     return 0;
 }
