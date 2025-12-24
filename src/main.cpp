@@ -3,6 +3,7 @@
 #include <vector>
 #include <iomanip>
 #include <map>
+#include <chrono>
 #include "backtester/data/CsvTickLoader.hpp"
 #include "backtester/strategy/MeanReversionStrategy.hpp"
 #include "backtester/execution/SimulatedExecutionHandler.hpp"
@@ -27,6 +28,8 @@ int main() {
 
     int tickCount = 0;
     double lastPrice = 0.0; 
+
+    auto start = std::chrono::high_resolution_clock::now();
 
     while (true) {
         auto tickOpt = loader.next();
@@ -80,6 +83,12 @@ int main() {
     std::cout << "------------------------------------------------" << std::endl;
     std::cout << "Total Portfolio Value: " << endValue << std::endl;
     std::cout << "Net Profit (PnL): " << (pnl >= 0 ? "+" : "") << pnl << " (" << returnPct << "%)" << std::endl;
+
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end-start).count();
+
+    std::cout << "Time taken: " << duration << " us" << std::endl;
+    std::cout << "Latency per tick: " << (double)duration / tickCount << " us" << std::endl;
 
     return 0;
 }

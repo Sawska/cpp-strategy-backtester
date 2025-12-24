@@ -1,18 +1,43 @@
 import csv
 import random
+import math
 
 filename = "data/market_data.csv"
 lines = 1000
-current_price = 100.0
+
+price = 100.0
+mean_price = 100.0
+theta = 0.1       
+sigma = 1.0       
+dt = 1.0          
+
 timestamp = 1600000000
 
-with open(filename, 'w') as f:
-    writer = csv.writer(f)
+print(f"Generating {lines} ticks using Ornstein-Uhlenbeck process...")
+print(f"Target Mean: {mean_price}, Reversion Speed (theta): {theta}")
+
+with open(filename, 'w', newline='') as csvfile:
+    writer = csv.writer(csvfile)
     writer.writerow(["timestamp", "price", "quantity", "side", "is_market_maker"])
     
     for i in range(lines):
         timestamp += 1
-        current_price += random.uniform(-2.0, 2.0) 
-        writer.writerow([timestamp, round(current_price, 2), 1.0, "buy", "true"])
+        
+        drift = theta * (mean_price - price) * dt
+        shock = sigma * random.gauss(0, 1) 
+        
+        price += drift + shock
+        
+        if price < 0.01: price = 0.01
 
-print(f"Generated {lines} ticks.")
+        side = "buy" if (drift + shock) > 0 else "sell"
+        
+        writer.writerow([
+            timestamp, 
+            round(price, 2), 
+            1.0, 
+            side, 
+            "false"
+        ])
+
+print(f"Done! File {filename} created.")
