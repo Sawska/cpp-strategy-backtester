@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "backtester/MeanReversionStrategy.hpp"
+#include "backtester/strategy/MeanReversionStrategy.hpp"
 
 class StrategyTest : public ::testing::Test {};
 

@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "backtester/PortfolioHandler.hpp"
+#include "backtester/portfolio/PortfolioHandler.hpp"
 
 TEST(PortfolioTest, InitialBalanceIsCorrect) {
     PortfolioHandler portfolio(10000.0);

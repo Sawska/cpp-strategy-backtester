@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "backtester/SimulatedExecutionHandler.hpp"
+#include "backtester/execution/SimulatedExecutionHandler.hpp"
 
 TEST(ExecutionHandlerTest, ExecutesOrderCorrectly) {
     SimulatedExecutionHandler handler(0.0);

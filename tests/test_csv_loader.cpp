@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <fstream>
 #include <cstdio>
-#include "backtester/CsvTickLoader.hpp"
+#include "backtester/data/CsvTickLoader.hpp"
 
 class CsvLoaderTest : public ::testing::Test {
 protected:

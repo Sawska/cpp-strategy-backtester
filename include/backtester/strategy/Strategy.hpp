@@ -1,5 +1,5 @@
 #pragma once
-#include "Types.hpp"
+#include "backtester/core/Types.hpp"
 #include <string>
 
 class IStrategy {

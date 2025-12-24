@@ -3,10 +3,10 @@
 #include <vector>
 #include <iomanip>
 #include <map>
-#include "backtester/CsvTickLoader.hpp"
-#include "backtester/MeanReversionStrategy.hpp"
-#include "backtester/SimulatedExecutionHandler.hpp"
-#include "backtester/PortfolioHandler.hpp"
+#include "backtester/data/CsvTickLoader.hpp"
+#include "backtester/strategy/MeanReversionStrategy.hpp"
+#include "backtester/execution/SimulatedExecutionHandler.hpp"
+#include "backtester/portfolio/PortfolioHandler.hpp"
 
 int main() {
     std::string filename = "data/market_data.csv"; 
