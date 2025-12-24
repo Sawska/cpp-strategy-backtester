@@ -13,9 +13,9 @@ protected:
 
         out << "timestamp,price,quantity,side,is_market_maker\n";
 
-        out << "1600000001,100.50,10.0,Buy,true\n";  // Тік 1
-        out << "1600000002,101.00,5.0,Sell,false\n"; // Тік 2
-        out << "1600000003,100.75,2.5,Unknown,0\n";  // Тік 3
+        out << "1600000001,100.50,10.0,Buy,true\n";  
+        out << "1600000002,101.00,5.0,Sell,false\n"; 
+        out << "1600000003,100.75,2.5,Unknown,0\n";  
         out.close();
     }
 
@@ -53,3 +53,6 @@ TEST(CsvLoaderManualTest, HandlesMissingFile) {
     auto result = loader.next();
     EXPECT_FALSE(result.has_value()); 
 }
+
+
+
