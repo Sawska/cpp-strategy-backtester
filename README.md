@@ -144,7 +144,7 @@ make docker-all
 
 ---
 
-## 📈 Results & Demo
+## Results & Demo
 
 Running the simulation on Ornstein-Uhlenbeck generated data demonstrates the strategy's ability to capitalize on mean reversion.
 
