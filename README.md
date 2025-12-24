@@ -1,8 +1,8 @@
 # High-Frequency Trading Strategy Backtester (C++)
 
-![CI Status](https://github.com/YOUR_GITHUB_USERNAME/cpp-strategy-backtester/actions/workflows/ci.yml/badge.svg)
+![CI Status](https://github.com/SAWSKA/cpp-strategy-backtester/actions/workflows/ci.yml/badge.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![C++](https://img.shields.io/badge/std-c%2B%2B17-blue.svg)
+![C++](https://img.shields.io/badge/std-c%2B%2B20-blue.svg)
 
 A high-performance, modular backtesting engine designed for HFT strategies. This project simulates an event-driven trading environment to validate **Mean Reversion** algorithms using statistical data modeling.
 
