@@ -19,6 +19,7 @@ include(FetchContent)
 FetchContent_Declare(
   googletest
   URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
+  DOWNLOAD_EXTRACT_TIMESTAMP TRUE
 )
 
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
@@ -28,3 +29,5 @@ enable_testing()
 
 add_subdirectory(src)
 add_subdirectory(tests)
+
+file(COPY ${CMAKE_SOURCE_DIR}/data DESTINATION ${CMAKE_BINARY_DIR}/bin)

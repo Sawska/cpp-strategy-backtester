@@ -2,9 +2,9 @@
 #include <cstdint>
 
 enum class Side : uint8_t {
+    Unknown,
     Buy,
-    Sell,
-    Unknown
+    Sell
 };
 
 struct Tick {
