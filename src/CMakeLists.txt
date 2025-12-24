@@ -5,14 +5,15 @@ add_library(backtester_lib
     portfolio/PortfolioHandler.cpp
 )
 
-
-if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE Release)
-endif()
-
-set(CMAKE_CXX_FLAGS_RELEASE "-O3 -march=native -DNDEBUG")
-
 target_include_directories(backtester_lib PUBLIC ${CMAKE_SOURCE_DIR}/include)
+
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    target_compile_options(backtester_lib PRIVATE -O3 -march=native -DNDEBUG)
+endif()
 
 add_executable(backtester_run main.cpp)
 target_link_libraries(backtester_run PRIVATE backtester_lib)
+
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    target_compile_options(backtester_run PRIVATE -O3 -march=native -DNDEBUG)
+endif()

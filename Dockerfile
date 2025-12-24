@@ -10,7 +10,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN cmake -S . -B build && \
+RUN cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && \
     cmake --build build
 
 RUN mkdir -p data

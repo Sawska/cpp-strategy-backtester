@@ -1,7 +1,7 @@
 all: build
 
 configure:
-	cmake -S . -B build
+	cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 
 build: configure
 	cmake --build build
@@ -14,3 +14,12 @@ clean:
 
 run: build
 	./build/bin/backtester_run
+
+docker-build:
+	docker build -t hft-backtester .
+
+docker-run:
+	# Використовуємо $(PWD) для підстановки поточної папки
+	docker run --rm -v $(PWD)/data:/app/data hft-backtester
+
+docker-all: docker-build docker-run

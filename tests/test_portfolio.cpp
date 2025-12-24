@@ -24,7 +24,7 @@ TEST(PortfolioTest, UpdatesOnSell) {
     portfolio.onExecution(exec);
 
     EXPECT_DOUBLE_EQ(portfolio.getCash(), 2995.0);
-    EXPECT_DOUBLE_EQ(portfolio.getPosition("BTC"), -0.5); // Short position
+    EXPECT_DOUBLE_EQ(portfolio.getPosition("BTC"), -0.5);
 }
 
 TEST(PortfolioTest, CalculatesTotalValue) {

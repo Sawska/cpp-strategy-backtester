@@ -1,2 +1,74 @@
-# cpp-strategy-backtester
-A modular backtesting engine skeleton for algorithmic trading strategies. Written in C++20 with a focus on clean architecture and performance.
+# High-Frequency Trading Strategy Backtester (C++)
+
+![CI Status](https://github.com/YOUR_GITHUB_USERNAME/cpp-strategy-backtester/actions/workflows/ci.yml/badge.svg)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![C++](https://img.shields.io/badge/std-c%2B%2B17-blue.svg)
+
+A high-performance, modular backtesting engine designed for HFT strategies. This project simulates an event-driven trading environment to validate **Mean Reversion** algorithms using statistical data modeling.
+
+---
+
+## 🚀 Key Features
+
+* **Modular Architecture:** Strict separation of concerns (Data, Strategy, Execution, Portfolio) using Interface-based design (SOLID principles).
+* **Performance:** Optimized with `-O3` and `-march=native` for low-latency execution simulation.
+* **Statistical Modeling:** Uses **Ornstein-Uhlenbeck process** to generate realistic mean-reverting market data for strategy validation.
+* **Quality Assurance:** * Unit Testing via **GoogleTest**.
+    * CI/CD pipeline via **GitHub Actions**.
+* **Containerization:** Fully Dockerized environment for reproducible builds.
+
+---
+
+## 🏗 Architecture
+
+The system is built on 4 core layers:
+
+1.  **Data Layer (`CsvTickLoader`):** * High-speed CSV parsing.
+    * Converts raw ticks into normalized internal structures.
+2.  **Strategy Layer (`MeanReversionStrategy`):**
+    * Implements Bollinger Bands logic using incremental calculation of Mean and Variance (Welford's algorithm approach).
+    * Signal generation based on Z-score deviation.
+3.  **Execution Layer (`SimulatedExecutionHandler`):**
+    * Simulates exchange latency and liquidity.
+    * Calculates transaction costs (Maker/Taker fees).
+4.  **Portfolio Layer (`PortfolioHandler`):**
+    * Real-time PnL tracking (Mark-to-Market).
+    * Position management and risk checks.
+
+
+
+---
+
+## 📊 Math & Methodology
+
+### Why Ornstein-Uhlenbeck?
+Standard random walks (Brownian motion) are non-stationary, making them unsuitable for testing Mean Reversion strategies. I implemented the **Ornstein-Uhlenbeck process** to generate synthetic data with mean-reverting properties:
+
+$$dX_t = \theta (\mu - X_t)dt + \sigma dW_t$$
+
+* $\theta$: Rate of reversion (spring stiffness).
+* $\mu$: Long-term mean price.
+* $\sigma$: Volatility.
+
+**Result:** On Random Walk data, the strategy yielded a net loss (as expected). On OU-generated data, the strategy demonstrated a consistent profit (**+2.34%** ROI in simulation), validating the logic.
+
+---
+
+## 🛠 Quick Start
+
+### Prerequisites
+* CMake 3.15+
+* C++ Compiler (GCC/Clang/MSVC)
+* Python 3 (for data generation)
+* Docker (Optional)
+
+### Local Build & Run
+```bash
+# 1. Generate Data
+python3 scripts/generate_data.py
+
+# 2. Configure & Build (Release Mode)
+make build
+
+# 3. Run Simulation
+make run
