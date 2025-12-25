@@ -144,9 +144,11 @@ make docker-all
 
 ---
 
-## 📈 Results & Demo
+## Results & Demo
 
 Running the simulation on Ornstein-Uhlenbeck generated data demonstrates the strategy's ability to capitalize on mean reversion.
+
+<img width="429" height="885" alt="Screenshot 2025-12-24 at 23 33 07" src="https://github.com/user-attachments/assets/b08413dc-d05c-439c-a1e6-5772c8afc75a" />
 
 *Figure: Terminal output showing trade execution logs, fee calculation, and final PnL report.*
 
@@ -160,3 +162,5 @@ The project uses GoogleTest for unit testing strategy logic and execution math.
 make test
 
 ```
+
+
