@@ -20,6 +20,54 @@ A high-performance, modular backtesting engine designed for HFT strategies. This
 
 ---
 
+## 🛠 Installation & Usage
+
+### 1. Clone the Repository
+
+Start by downloading the source code:
+
+```bash
+git clone [https://github.com/SAWSKA/cpp-strategy-backtester.git](https://github.com/SAWSKA/cpp-strategy-backtester.git)
+cd cpp-strategy-backtester
+
+## 🛠 Installation & Usage
+
+### 1. Clone the Repository
+
+Start by downloading the source code:
+
+```bash
+git clone [https://github.com/SAWSKA/cpp-strategy-backtester.git](https://github.com/SAWSKA/cpp-strategy-backtester.git)
+cd cpp-strategy-backtester
+
+2. Choose Your Workflow
+You can run the backtester using Docker (easiest, no dependencies) or build it Locally.
+
+Option A: Docker (Recommended)
+This will build the image, generate data, and run the simulation inside a container.
+
+make docker-all
+
+Option B: Local Build
+Prerequisites:
+CMake 3.20+
+C++ Compiler (GCC/Clang/MSVC) supporting C++20
+Python 3 (for data generation)
+Steps:
+
+# 1. Generate Data
+python3 scripts/generate_data.py
+
+# 2. Configure & Build (Release Mode)
+make build
+
+# 3. Run Simulation
+make run
+
+
+
+---
+
 ## Architecture
 
 The system is built on 4 core layers using an interface-based design pattern.

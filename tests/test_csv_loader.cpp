@@ -3,21 +3,14 @@
 #include <cstdio>
 #include "backtester/data/CsvTickLoader.hpp"
 
-#include <gtest/gtest.h>
-#include <fstream>
-#include <cstdio>
-#include "backtester/data/CsvTickLoader.hpp"
-
 class CsvLoaderTest : public ::testing::Test {
 protected:
     std::string test_filename = "test_market_data.csv";
 
     void SetUp() override {
         std::ofstream out(test_filename);
-        // Header updated
         out << "timestamp,price,quantity,side\n";
 
-        // Data updated (removed ",true" and ",false")
         out << "1600000001,100.50,10.0,Buy\n";  
         out << "1600000002,101.00,5.0,Sell\n"; 
         out << "1600000003,100.75,2.5,Unknown\n";  
@@ -57,11 +50,11 @@ TEST(CsvLoaderManualTest, HandlesMissingFile) {
     EXPECT_FALSE(result.has_value()); 
 }
 
-TEST(CsvLoaderManualTest, HandlesMissingFile) {
-    CsvTickLoader loader("non_existent_file.csv");
-    auto result = loader.next();
-    EXPECT_FALSE(result.has_value()); 
-}
+// TEST(CsvLoaderManualTest, HandlesMissingFile) {
+//     CsvTickLoader loader("non_existent_file.csv");
+//     auto result = loader.next();
+//     EXPECT_FALSE(result.has_value()); 
+// }
 
 
 

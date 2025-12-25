@@ -4,7 +4,7 @@
 TEST(ExecutionHandlerTest, ExecutesOrderCorrectly) {
     SimulatedExecutionHandler handler(0.0);
 
-    Tick marketTick{1000, 50000.0, 1.0, Side::Sell, false};
+    Tick marketTick{1000, 50000.0, 1.0, Side::Sell};
     Order order{1000, "BTCUSDT", Side::Buy, 0.5};
 
     auto execOpt = handler.onOrder(order, marketTick);
@@ -21,7 +21,7 @@ TEST(ExecutionHandlerTest, ExecutesOrderCorrectly) {
 TEST(ExecutionHandlerTest, CalculatesFeesCorrectly) {
     SimulatedExecutionHandler handler(0.001);
 
-    Tick marketTick{2000, 100.0, 1.0, Side::Sell, false}; 
+    Tick marketTick{2000, 100.0, 1.0, Side::Sell}; 
     Order order{2000, "TEST", Side::Buy, 10.0}; 
 
     auto execOpt = handler.onOrder(order, marketTick);
