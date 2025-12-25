@@ -62,11 +62,6 @@ std::optional<Tick> CsvTickLoader::parseLine(const std::string& line) {
             tick.side = Side::Unknown;
         }
 
-        if (!std::getline(ss, segment, ',')) {
-            tick.is_market_maker = false; 
-        } else {
-            tick.is_market_maker = (segment == "true" || segment == "1");
-        }
 
     } catch (const std::exception& e) {
         return std::nullopt;

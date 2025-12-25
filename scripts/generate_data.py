@@ -18,7 +18,7 @@ print(f"Target Mean: {mean_price}, Reversion Speed (theta): {theta}")
 
 with open(filename, 'w', newline='') as csvfile:
     writer = csv.writer(csvfile)
-    writer.writerow(["timestamp", "price", "quantity", "side", "is_market_maker"])
+    writer.writerow(["timestamp", "price", "quantity", "side"])
     
     for i in range(lines):
         timestamp += 1
@@ -36,8 +36,7 @@ with open(filename, 'w', newline='') as csvfile:
             timestamp, 
             round(price, 2), 
             1.0, 
-            side, 
-            "false"
+            side
         ])
 
 print(f"Done! File {filename} created.")

@@ -160,7 +160,3 @@ The project uses GoogleTest for unit testing strategy logic and execution math.
 make test
 
 ```
-
-```
-
-```

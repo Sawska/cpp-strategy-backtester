@@ -19,7 +19,6 @@ docker-build:
 	docker build -t hft-backtester .
 
 docker-run:
-	# Використовуємо $(PWD) для підстановки поточної папки
 	docker run --rm -v $(PWD)/data:/app/data hft-backtester
 
 docker-all: docker-build docker-run
