@@ -29,6 +29,7 @@ Start by downloading the source code:
 ```bash
 git clone [https://github.com/SAWSKA/cpp-strategy-backtester.git](https://github.com/SAWSKA/cpp-strategy-backtester.git)
 cd cpp-strategy-backtester
+```
 
 ## 🛠 Installation & Usage
 
@@ -39,7 +40,7 @@ Start by downloading the source code:
 ```bash
 git clone [https://github.com/SAWSKA/cpp-strategy-backtester.git](https://github.com/SAWSKA/cpp-strategy-backtester.git)
 cd cpp-strategy-backtester
-
+```
 2. Choose Your Workflow
 You can run the backtester using Docker (easiest, no dependencies) or build it Locally.
 
@@ -56,14 +57,17 @@ Python 3 (for data generation)
 Steps:
 
 # 1. Generate Data
+```bash
 python3 scripts/generate_data.py
-
+```
 # 2. Configure & Build (Release Mode)
+```bash
 make build
-
+```
 # 3. Run Simulation
+```bash
 make run
-
+```
 
 
 ---
